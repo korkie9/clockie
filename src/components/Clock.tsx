@@ -5,12 +5,12 @@ import Center from "../components/Center";
 import { TouchableWithoutFeedback } from "react-native";
 
 interface ClockProps {
-  timer1: string;
-  timer2: string;
+  timer1: number;
+  timer2: number;
   onButtonClick: (buttonNumber: number) => void;
   pause: () => void;
   back: () => void;
-  reset: () => void;
+  onReset: () => void;
 }
 
 const Clock: React.FC<ClockProps> = ({
@@ -19,7 +19,7 @@ const Clock: React.FC<ClockProps> = ({
   onButtonClick,
   pause,
   back,
-  reset,
+  onReset,
 }) => {
   const [color1, setColor1] = useState<string>("#f59090");
   const [color2, setColor2] = useState<string>("#f59090");
@@ -34,6 +34,11 @@ const Clock: React.FC<ClockProps> = ({
     }
     onButtonClick(buttonNumber);
   };
+  const reset = () => {
+    setColor1("#f59090");
+    setColor2("#f59090");
+    onReset()
+  }
   return (
     <Center>
       <Center>
@@ -54,6 +59,7 @@ const Clock: React.FC<ClockProps> = ({
         <TouchableWithoutFeedback onPress={() => reset()}>
           <Text style={{ margin: 5 }}>Reset</Text>
         </TouchableWithoutFeedback>
+        
       </View>
       <Center>
         <ClockButton

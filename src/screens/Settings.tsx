@@ -40,8 +40,12 @@ export const Settings: React.FC<SettingsProps> = ({ navigation }) => {
       Alert.alert("Seconds must be less than 60");
       return;
     }
-    
-    if(timeFormat === "Fischer") navigation.navigate("FischerClock")
+    const fulltime = (hours*60*60) + (minutes*60) + seconds
+    const secondarySec = secondarySeconds ? secondarySeconds : 0
+    const secondaryMin = secondarySeconds ? secondarySeconds : 0
+    const secondaryTime = secondarySec + (secondaryMin*60)
+    console.log(fulltime)
+    if(timeFormat === "Fischer") navigation.navigate("FischerClock", {time: fulltime, increment: secondaryTime})
     if(timeFormat === "Bronstein") navigation.navigate("BronsteinClock")
     if(timeFormat === "Hourglass") navigation.navigate("HourglassClock")
     if(timeFormat === "Delay") navigation.navigate("DelayClock")

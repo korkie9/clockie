@@ -1,35 +1,60 @@
 import { StackNavigationProp } from "@react-navigation/stack";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Center from "../components/Center";
 import Clock from "../components/Clock";
 import { ParamList } from "../ParamList";
-import { Text } from 'react-native'
+import { Text } from "react-native";
 
 interface FischerClockProps {
   navigation: StackNavigationProp<ParamList, "FischerClock">;
+  route: any;
 }
 
-const FischerClock: React.FC<FischerClockProps> = ({ navigation }) => {
+const FischerClock: React.FC<FischerClockProps> = ({ navigation, route }) => {
+  const [player1Time, setPlayer1Time] = useState<number>(route.params.time);
+  const [player2Time, setPlayer2Time] = useState<number>(route.params.time);
+  const [playerTurn, setPlayerTurn] = useState<number>();
+  const [intervalId, setIntervalId] = useState<any>();
+  useEffect(() => {
+    if(intervalId) clearInterval(intervalId)
+    if(playerTurn){
+     const intId =  setInterval(deductTime, 1000);
+      setIntervalId(intId)
+    }
+    return () => {
+      if(intervalId) clearInterval(intervalId)
+    }
+  }, [playerTurn]);
   const handleButtonClick = (buttonNumber: number): void => {
+    const playerWhosTimeMustRun = buttonNumber === 1 ? 2 : 1;
+    setPlayerTurn(turn => playerWhosTimeMustRun);
     console.log(buttonNumber);
     return;
   };
   const handlePause = (): void => {
+    clearInterval(intervalId);
     console.log("paused");
   };
   const handleReset = (): void => {
+    clearInterval(intervalId);
+    setPlayer1Time(time => route.params.time)
+    setPlayer2Time(time => route.params.time)
     console.log("reset");
+  };
+  const deductTime = (): void => {
+    if (playerTurn === 1) setPlayer1Time(player1Time => player1Time - 1);
+    if (playerTurn === 2) setPlayer2Time(player2Time => player2Time - 1);
+
   };
   return (
     <Center>
-        <Text>Fischer</Text>
       <Clock
-        timer1="00:00:00"
-        timer2="00:00:00"
+        timer1={player1Time}
+        timer2={player2Time}
         onButtonClick={handleButtonClick}
         pause={handlePause}
         back={() => navigation.goBack()}
-        reset={handleReset}
+        onReset={handleReset}
       />
     </Center>
   );
