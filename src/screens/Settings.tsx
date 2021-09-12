@@ -42,7 +42,7 @@ export const Settings: React.FC<SettingsProps> = ({ navigation }) => {
     }
     const fulltime = (hours*60*60) + (minutes*60) + seconds
     const secondarySec = secondarySeconds ? secondarySeconds : 0
-    const secondaryMin = secondarySeconds ? secondarySeconds : 0
+    const secondaryMin = secondaryMinutes ? secondaryMinutes : 0
     const secondaryTime = secondarySec + (secondaryMin*60)
     console.log(fulltime)
     if(timeFormat === "Fischer") navigation.navigate("FischerClock", {time: fulltime, increment: secondaryTime})
