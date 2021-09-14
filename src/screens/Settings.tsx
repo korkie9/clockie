@@ -47,12 +47,12 @@ export const Settings: React.FC<SettingsProps> = ({ navigation }) => {
     console.log(fulltime)
     if(timeFormat === "Fischer") navigation.navigate("FischerClock", {time: fulltime, increment: secondaryTime})
     if(timeFormat === "Bronstein") navigation.navigate("BronsteinClock")
-    if(timeFormat === "Hourglass") navigation.navigate("HourglassClock")
+    if(timeFormat === "Hourglass") navigation.navigate("HourglassClock", {time: fulltime})
     if(timeFormat === "Delay") navigation.navigate("DelayClock")
   };
 
   return (
-    <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
+    <View style={{ justifyContent: "center", alignItems: "center", flex: 1}}>
       <Picker
         selectedValue={timeFormat}
         style={{ height: 50, width: 150 }}

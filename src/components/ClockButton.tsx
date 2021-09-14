@@ -27,6 +27,14 @@ const ClockButton: React.FC<ClockButtonProps> = ({
     setMinutes(min);
     setSeconds(sec);
   }, [time]);
+  const displayMinutes = (): string | null => {
+    const min = `${minutes < 10 ? `0${minutes}` : minutes} : `;
+    return hours < 1 && minutes < 1 ? null : min;
+  };
+  const displaySeconds = (): string | null => {
+    const sec = seconds < 10 ? `0${seconds}` : seconds;
+    return hours < 1 && minutes < 1 ? `${seconds}` : `${sec}`;
+  };
   return (
     <TouchableWithoutFeedback onPress={() => onClick(buttonNumber)}>
       <View
@@ -35,13 +43,14 @@ const ClockButton: React.FC<ClockButtonProps> = ({
           width: 300,
           height: "80%",
           padding: 20,
+          borderRadius: 5
         }}
       >
         <Center>
-          <Text>
-            {hours > 0  && `${hours < 10 ? `0${hours}` : hours} : `}
-            {`${minutes < 10 ? `0${minutes}` : minutes} : `}
-            {seconds < 10 ? `0${seconds}` : seconds}
+          <Text style={{fontSize: 40}}>
+            {hours > 0 && `${hours < 10 ? `0${hours}` : hours} : `}
+            {displayMinutes()}
+            {displaySeconds()}
           </Text>
         </Center>
       </View>

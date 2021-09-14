@@ -16,7 +16,7 @@ export const Home: React.FC<HomeProps> = ({ navigation }) => {
       <Button
         title="HourGlass"
         onPress={() => {
-          navigation.navigate("HourglassClock");
+          
         }}
       />
       <View></View>

@@ -25,8 +25,8 @@ const FischerClock: React.FC<FischerClockProps> = ({ navigation, route }) => {
         console.log("no more time");
       };
     const interval: NodeJS.Timer = setInterval(deductTime, 1000);
-    if(stopped === false) setIntervalId(intervalId);
-    return () => clearInterval(interval);
+    setIntervalId(interval)
+    return () => clearInterval(interval)
   }, [playerTurn, refresh, stopped]);
   /////////////////////
   const handleButtonClick = (buttonNumber: number): void => {
@@ -41,7 +41,8 @@ const FischerClock: React.FC<FischerClockProps> = ({ navigation, route }) => {
     return;
   };
   const handlePause = (): void => {
-    setStopped(stopped => true)
+    // setStopped(stopped => true)
+    clearInterval(intervalId)
     console.log("paused");
   };
   const handleReset = (): void => {
