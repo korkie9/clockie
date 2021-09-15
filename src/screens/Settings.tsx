@@ -48,7 +48,7 @@ export const Settings: React.FC<SettingsProps> = ({ navigation }) => {
     if(timeFormat === "Fischer") navigation.navigate("FischerClock", {time: fulltime, increment: secondaryTime})
     if(timeFormat === "Bronstein") navigation.navigate("BronsteinClock")
     if(timeFormat === "Hourglass") navigation.navigate("HourglassClock", {time: fulltime})
-    if(timeFormat === "Delay") navigation.navigate("DelayClock")
+    if(timeFormat === "Delay") navigation.navigate("DelayClock", {time: fulltime, delay: secondaryTime})
   };
 
   return (

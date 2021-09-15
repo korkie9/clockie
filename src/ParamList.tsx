@@ -3,6 +3,6 @@ export type ParamList = {
     HourglassClock: {time: number},
     FischerClock: {time: number, increment: number},
     BronsteinClock: undefined,
-    DelayClock: undefined,
+    DelayClock: {time: number, delay: number},
     Settings: undefined
 }
