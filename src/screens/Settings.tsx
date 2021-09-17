@@ -46,9 +46,10 @@ export const Settings: React.FC<SettingsProps> = ({ navigation }) => {
     const secondaryTime = secondarySec + (secondaryMin*60)
     console.log(fulltime)
     if(timeFormat === "Fischer") navigation.navigate("FischerClock", {time: fulltime, increment: secondaryTime})
-    if(timeFormat === "Bronstein") navigation.navigate("BronsteinClock")
+    if(timeFormat === "Bronstein") navigation.navigate("BronsteinClock", {time: fulltime, increment: secondaryTime})
     if(timeFormat === "Hourglass") navigation.navigate("HourglassClock", {time: fulltime})
     if(timeFormat === "Delay") navigation.navigate("DelayClock", {time: fulltime, delay: secondaryTime})
+    if(timeFormat === "SingleMove") navigation.navigate("SingleMoveClock", {time: fulltime})
   };
 
   return (
@@ -62,6 +63,7 @@ export const Settings: React.FC<SettingsProps> = ({ navigation }) => {
         <Picker.Item label="Bronstein" value="Bronstein" />
         <Picker.Item label="Delay" value="Delay" />
         <Picker.Item label="Hourglass" value="Hourglass" />
+        <Picker.Item label="Single-Move" value="SingleMove" />
       </Picker>
       <Fischer type={timeFormat} onSubmit={handleSubmit} />
     </View>

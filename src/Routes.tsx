@@ -8,7 +8,7 @@ import FischerClock from "./Clocks/FischerClock";
 import DelayClock from "./Clocks/DelayClock";
 import BronsteinClock from "./Clocks/BronsteinClock";
 import HourglassClock from "./Clocks/HourglassClock";
-
+import SingleMoveClock from "./Clocks/SingleMoveClock"
 
 interface RouteProps {}
 const Stack = createNativeStackNavigator<ParamList>();
@@ -28,6 +28,7 @@ const Routes: React.FC<RouteProps> = ({}) => {
         <Stack.Screen name="FischerClock" component={FischerClock} />
         <Stack.Screen name="DelayClock" component={DelayClock} />
         <Stack.Screen name="BronsteinClock" component={BronsteinClock} />
+        <Stack.Screen name="SingleMoveClock" component={SingleMoveClock} />
       </Stack.Navigator>
     </NavigationContainer>
   );
