@@ -24,23 +24,23 @@ const Clock: React.FC<ClockProps> = ({
   back,
   onReset,
 }) => {
-  const [color1, setColor1] = useState<string>("#f59090");
-  const [color2, setColor2] = useState<string>("#f59090");
+  const [color1, setColor1] = useState<string>("cyan");
+  const [color2, setColor2] = useState<string>("cyan");
   const [paused, setPaused] = useState<boolean>(false);
   const handleButtonClick = (buttonNumber: number): void => {
     if (buttonNumber === 1) {
-      setColor2("#ff1100");
-      setColor1("#f59090");
+      setColor2("darkcyan");
+      setColor1("cyan");
     }
     if (buttonNumber === 2) {
-      setColor1("#ff1100");
-      setColor2("#f59090");
+      setColor1("darkcyan");
+      setColor2("cyan");
     }
     onButtonClick(buttonNumber);
   };
   const reset = () => {
-    setColor1("#f59090");
-    setColor2("#f59090");
+    setColor1("cyan");
+    setColor2("cyan");
     onReset();
   };
 

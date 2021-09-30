@@ -5,5 +5,5 @@ export type ParamList = {
     BronsteinClock: {time: number, increment: number},
     DelayClock: {time: number, delay: number},
     SingleMoveClock: {time: number},
-    Settings: undefined
+    Settings: undefined,
 }

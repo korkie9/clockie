@@ -1,4 +1,4 @@
-import { RouteProp } from "@react-navigation/native";
+import { NavigationContainer, RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
 import { useState } from "react";
@@ -10,9 +10,10 @@ import {
   Alert,
 } from "react-native";
 import { View } from "react-native";
-
 import { ParamList } from "../ParamList";
 import NumericInput from "react-native-numeric-input";
+import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 
 export interface SettingsProps {
   navigation: StackNavigationProp<ParamList, "Settings">;
@@ -40,23 +41,40 @@ export const Settings: React.FC<SettingsProps> = ({ navigation }) => {
       Alert.alert("Seconds must be less than 60");
       return;
     }
-    const fulltime = (hours*60*60) + (minutes*60) + seconds
-    const secondarySec = secondarySeconds ? secondarySeconds : 0
-    const secondaryMin = secondaryMinutes ? secondaryMinutes : 0
-    const secondaryTime = secondarySec + (secondaryMin*60)
-    console.log(fulltime)
-    if(timeFormat === "Fischer") navigation.navigate("FischerClock", {time: fulltime, increment: secondaryTime})
-    if(timeFormat === "Bronstein") navigation.navigate("BronsteinClock", {time: fulltime, increment: secondaryTime})
-    if(timeFormat === "Hourglass") navigation.navigate("HourglassClock", {time: fulltime})
-    if(timeFormat === "Delay") navigation.navigate("DelayClock", {time: fulltime, delay: secondaryTime})
-    if(timeFormat === "SingleMove") navigation.navigate("SingleMoveClock", {time: fulltime})
+    const fulltime = hours * 60 * 60 + minutes * 60 + seconds;
+    const secondarySec = secondarySeconds ? secondarySeconds : 0;
+    const secondaryMin = secondaryMinutes ? secondaryMinutes : 0;
+    const secondaryTime = secondarySec + secondaryMin * 60;
+    console.log(fulltime);
+    if (timeFormat === "Fischer")
+      navigation.navigate("FischerClock", {
+        time: fulltime,
+        increment: secondaryTime,
+      });
+    if (timeFormat === "Bronstein")
+      navigation.navigate("BronsteinClock", {
+        time: fulltime,
+        increment: secondaryTime,
+      });
+    if (timeFormat === "Hourglass")
+      navigation.navigate("HourglassClock", { time: fulltime });
+    if (timeFormat === "Delay")
+      navigation.navigate("DelayClock", {
+        time: fulltime,
+        delay: secondaryTime,
+      });
+    if (timeFormat === "SingleMove")
+      navigation.navigate("SingleMoveClock", { time: fulltime });
+  };
+  const handleBack = (): void => {
+    navigation.goBack();
   };
 
   return (
     <View style={{ justifyContent: "center", alignItems: "center", flex: 1}}>
       <Picker
         selectedValue={timeFormat}
-        style={{ height: 50, width: 150 }}
+        style={{ height: 50, width: 150, fontSize: 20}}
         onValueChange={(itemValue, itemIndex) => setTimeFormat(itemValue)}
       >
         <Picker.Item label="Fischer" value="Fischer" />
@@ -65,7 +83,7 @@ export const Settings: React.FC<SettingsProps> = ({ navigation }) => {
         <Picker.Item label="Hourglass" value="Hourglass" />
         <Picker.Item label="Single-Move" value="SingleMove" />
       </Picker>
-      <Fischer type={timeFormat} onSubmit={handleSubmit} />
+      <Fischer type={timeFormat} onSubmit={handleSubmit} onBack={handleBack} />
     </View>
   );
 };
@@ -79,19 +97,35 @@ export interface TimerProps {
     secondaryMinutes: number | null | undefined,
     secondarySeconds: number | null | undefined
   ) => void;
+  onBack: () => void;
 }
-const Fischer: React.FC<TimerProps> = ({ type, onSubmit }) => {
+const Fischer: React.FC<TimerProps> = ({ type, onSubmit, onBack }) => {
   const [hours, setHours] = useState<number>(0);
   const [minutes, setMinutes] = useState<number>(0);
   const [seconds, setSeconds] = useState<number>(0);
   const [secondaryMinutes, setSecondaryMinutes] = useState<number>(0);
   const [secondarySeconds, setSecondarySeconds] = useState<number>(0);
+
+  const handleSubmit = (
+    hours: number,
+    minutes: number,
+    seconds: number,
+    secondaryMinutes: number,
+    secondarySeconds: number
+  ): void => {
+    if (hours === 0 && seconds === 0 && minutes === 0)
+      return Alert.alert("Minimum time is 1 second");
+    onSubmit(hours, minutes, seconds, secondaryMinutes, secondarySeconds);
+  };
+  const handleBack = (): void => {
+    onBack();
+  };
   return (
     <View
       style={{ alignItems: "center", justifyContent: "center", margin: 50 }}
     >
-      <Text style={{ fontSize: 40 }}>Time</Text>
-      <View style={{ flexDirection: "row", margin: 50 }}>
+      <Text style={{ fontSize: 20 }}>Time</Text>
+      <View style={{ flexDirection: "row", margin: 40 }}>
         <View
           style={{
             flexDirection: "column",
@@ -157,13 +191,12 @@ const Fischer: React.FC<TimerProps> = ({ type, onSubmit }) => {
           />
         </View>
       </View>
-      {type === "Fischer" && <Text>Increment</Text>}
-      {type === "Bronstein" && <Text>Delay</Text>}
-      {type === "Delay" && <Text>Delay</Text>}
-      {type !== "Hourglass" && (
-
+      {type === "Fischer" && <Text style={{fontSize: 20}}>Increment</Text>}
+      {type === "Bronstein" && <Text style={{fontSize: 20}}>Increment</Text>}
+      {type === "Delay" && <Text style={{fontSize: 20}}>Delay</Text>}
+      {type !== "Hourglass" && type !== "SingleMove" && (
         //Secondary Section ///////////////////////////////
-        <View style={{ flexDirection: "row", margin: 50 }}>
+        <View style={{ flexDirection: "row", margin: 40 }}>
           <View
             style={{
               flexDirection: "column",
@@ -208,15 +241,44 @@ const Fischer: React.FC<TimerProps> = ({ type, onSubmit }) => {
 
         //End of Secondary Section ///////////////////////////////
       )}
-      <TouchableWithoutFeedback
-        onPress={() => {
-          onSubmit(hours, minutes, seconds, secondaryMinutes, secondarySeconds);
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <View style={styles.button}>
-          <Text style={styles.buttonText}>Start</Text>
-        </View>
-      </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            handleBack();
+          }}
+          style={{ flex: 1 }}
+        >
+          <View style={styles.SettingsButton}>
+            <Text style={styles.SettingsText}>
+              <Ionicons name="arrow-back-outline" size={24} color="white" />
+            </Text>
+          </View>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            handleSubmit(
+              hours,
+              minutes,
+              seconds,
+              secondaryMinutes,
+              secondarySeconds
+            );
+          }}
+          style={{ flex: 1 }}
+        >
+          <View style={styles.SettingsButton}>
+            <Text style={styles.SettingsText}>
+              <FontAwesome name="play" size={24} color="white" />
+            </Text>
+          </View>
+        </TouchableWithoutFeedback>
+      </View>
     </View>
   );
 };
@@ -232,6 +294,19 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: "center",
     padding: 20,
+    color: "white",
+    fontSize: 20,
+  },
+  SettingsButton: {
+    alignItems: "center",
+    backgroundColor: "darkcyan",
+    margin: 20,
+    padding: 15,
+    borderRadius: 10,
+    width: 100,
+  },
+  SettingsText: {
+    textAlign: "center",
     color: "white",
     fontSize: 20,
   },

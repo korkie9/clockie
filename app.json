@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "clockie",
+    "name": "Clockie",
     "slug": "clockie",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/clockie-logo.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/clockie-logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#000000"
     },
@@ -21,12 +21,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/clockie-logo.png",
         "backgroundColor": "#000000"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/clockie-logo.png"
     },
     "androidNavigationBar": {
       "visible": "immersive"

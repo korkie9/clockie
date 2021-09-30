@@ -17,9 +17,9 @@ const Routes: React.FC<RouteProps> = ({}) => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Settings"
+        initialRouteName="Home"
         screenOptions={{
-          headerShown: false,
+        headerShown: false,
         }}
       >
         <Stack.Screen name="Home" component={Home} />
