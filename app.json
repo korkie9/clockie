@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/clockie-logo.png",
         "backgroundColor": "#000000"
-      }
+      },
+      "package": "com.korkie.clockie"
     },
     "web": {
       "favicon": "./assets/clockie-logo.png"

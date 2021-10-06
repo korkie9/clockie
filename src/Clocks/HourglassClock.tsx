@@ -24,7 +24,6 @@ const HourglassClock: React.FC<HourglassClockProps> = ({
     if (player1Time <= 0 || player2Time <= 0)
       return () => {
         if (intervalId) clearInterval(intervalId);
-        console.log("no more time");
       };
     const interval: NodeJS.Timer = setInterval(deductTime, 1000);
     setIntervalId(interval);
@@ -38,20 +37,16 @@ const HourglassClock: React.FC<HourglassClockProps> = ({
     return;
   };
   const handlePause = (): void => {
-
     clearInterval(intervalId);
-    console.log("paused");
   };
   const handleReset = (): void => {
     clearInterval(intervalId);
     setPlayerTurn(0);
     setPlayer1Time((time) => route.params.time);
     setPlayer2Time((time) => route.params.time);
-    console.log("reset");
   };
   const deductTime = (): void => {
     setRefresh((refresh) => !refresh);
-    console.log("time remaining p1:", player1Time, " p2:", player2Time);
     if (!playerTurn) return;
     if(player1Time < 1 || player2Time < 1) {
       clearInterval()

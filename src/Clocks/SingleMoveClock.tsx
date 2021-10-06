@@ -30,13 +30,11 @@ const SingleMoveClock: React.FC<SingleMoveClockProps> = ({ navigation, route }) 
   };
   const handlePause = (): void => {
     setPlayerTurn(0)
-    console.log("paused");
   };
   const handleReset = (): void => {
     setPlayerTurn(0);
     setPlayer1Time((time) => route.params.time);
     setPlayer2Time((time) => route.params.time);
-    console.log("reset");
   };
   const deductTime = (): void => {
     if (!playerTurn || playerTurn === 0) return;

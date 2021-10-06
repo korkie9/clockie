@@ -1,4 +1,3 @@
-import { NavigationContainer, RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
 import { useState } from "react";
@@ -45,7 +44,6 @@ export const Settings: React.FC<SettingsProps> = ({ navigation }) => {
     const secondarySec = secondarySeconds ? secondarySeconds : 0;
     const secondaryMin = secondaryMinutes ? secondaryMinutes : 0;
     const secondaryTime = secondarySec + secondaryMin * 60;
-    console.log(fulltime);
     if (timeFormat === "Fischer")
       navigation.navigate("FischerClock", {
         time: fulltime,
@@ -139,7 +137,7 @@ const Fischer: React.FC<TimerProps> = ({ type, onSubmit, onBack }) => {
             minValue={0}
             maxValue={24}
             type="up-down"
-            totalWidth={90}
+            totalWidth={80}
           />
         </View>
         <Text
@@ -163,7 +161,7 @@ const Fischer: React.FC<TimerProps> = ({ type, onSubmit, onBack }) => {
             minValue={0}
             maxValue={59}
             type="up-down"
-            totalWidth={90}
+            totalWidth={80}
           />
         </View>
         <Text
@@ -187,7 +185,7 @@ const Fischer: React.FC<TimerProps> = ({ type, onSubmit, onBack }) => {
             minValue={0}
             maxValue={59}
             type="up-down"
-            totalWidth={90}
+            totalWidth={80}
           />
         </View>
       </View>

@@ -15,8 +15,6 @@ const DelayClock: React.FC<DelayClockProps> = ({ navigation, route }) => {
   const [player2Time, setPlayer2Time] = useState<number>(route.params.time);
   const [delayTime, setDelayTime] = useState<number>(route.params.delay);
   const [playerTurn, setPlayerTurn] = useState<number>();
- // const [intervalId, setIntervalId] = useState<any>();
- const [refresh, setRefresh] = useState<boolean>(true);
   const [delayPhase, setDelayPhase] = useState<boolean>(true);
   ////////////////////////
   useEffect(() => {
@@ -34,13 +32,13 @@ const DelayClock: React.FC<DelayClockProps> = ({ navigation, route }) => {
   };
   const handlePause = (): void => {
     setPlayerTurn(0)
-    console.log("paused");
+
   };
   const handleReset = (): void => {
     setPlayerTurn(0);
     setPlayer1Time((time) => route.params.time);
     setPlayer2Time((time) => route.params.time);
-    console.log("reset");
+
   };
   const deductTime = (): void => {
     if(delayPhase){
@@ -49,7 +47,7 @@ const DelayClock: React.FC<DelayClockProps> = ({ navigation, route }) => {
       return
     }
     if (!playerTurn || playerTurn === 0) return;
-    if (player1Time <= 0 || player2Time <= 0) return console.log("no more time")
+    if (player1Time <= 0 || player2Time <= 0) return
     if (playerTurn === 1) return setPlayer1Time((player1Time) => player1Time - 1);
     return setPlayer2Time((player2Time) => player2Time - 1);
   };

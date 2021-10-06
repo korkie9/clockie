@@ -1,4 +1,3 @@
-import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
 import {
@@ -134,7 +133,7 @@ const styles = StyleSheet.create({
     width: 150,
     alignItems: "center",
     backgroundColor: "darkcyan",
-    margin: 5,
+    margin: 3,
     borderRadius: 5,
   },
   customButton: {
@@ -142,12 +141,12 @@ const styles = StyleSheet.create({
     width: 150,
     alignItems: "center",
     backgroundColor: "black",
-    margin: 5,
+    margin: 3,
     borderRadius: 5,
   },
   buttonText: {
     textAlign: "center",
-    padding: 10,
+    padding: 8,
     color: "white",
     fontSize: 17,
   },
